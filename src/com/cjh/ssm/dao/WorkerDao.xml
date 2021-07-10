@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cjh.ssm.dao.WorkerDao">
+  <select id="findPwdByEid" resultType="String">
+    select password from t_user where eid = #{eid}
+  </select>  
+  
+  <select id="findWorkerByEid" resultType="workerinfo">
+    select * from t_user where eid = #{eid}
+  </select>  
+  
+  <update id="updateWorkerPassword" parameterType="workerinfo">
+  	update t_user set password=#{password} where eid=#{eid}
+  </update>
+  
+  <update id="updateWorkerAllInfo" parameterType="workerinfo">
+  	update t_user set password=#{password},name=#{name},sex=#{sex},dpname=#{dpname},position=#{position},nation=#{nation},education=#{education},id_number=#{id_number},phone=#{phone},mail=#{mail},address=#{address},birth=#{birth},entry_time=#{entry_time},is_single=#{is_single} where eid=#{eid}
+  </update>
+  
+  <update id="updateWorkerInfo" parameterType="workerinfo">
+  	update t_user set phone=#{phone},mail=#{mail},address=#{address},is_single=#{is_single} where eid=#{eid}
+  </update>
+  
+  <select id="findWorkerAll" resultType="workerinfo">
+		select * from t_user 
+	</select>
+	
+	<select id="findWorkerBySex" resultType="workerinfo">
+		select * from t_user where sex = #{sex}
+	</select>
+	
+	<select id="findWorkerByIs_single" resultType="workerinfo">
+		select * from t_user where is_single = #{is_single}
+	</select>
+	
+	<select id="findWorkerByDpname" resultType="workerinfo">
+		select * from t_user where dpname like "%"#{dpname}"%"
+	</select>
+	
+	<insert id="insertWorker" parameterType="workerinfo">
+		insert into t_user values (#{eid},#{is_adm},#{password},#{name},#{sex},#{dpname},#{position},#{nation},#{education},#{id_number},#{birth},#{phone},#{mail},#{address},#{entry_time},#{is_single})
+	</insert>
+	
+	<delete id="deleteWorker" parameterType="Integer">
+		delete from t_user where eid=#{eid}
+	</delete>
+</mapper>
